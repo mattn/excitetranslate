@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,6 +14,13 @@ import (
 )
 
 func main() {
+	var mode string
+	flag.StringVar(&mode, "mode", "ENJA", "translate mode ENJA/JAEN")
+	flag.Parse()
+	if mode != "ENJA" && mode != "JAEN" {
+		flag.Usage()
+		os.Exit(1)
+	}
 	b, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
 		log.Fatal(err)
@@ -20,7 +28,7 @@ func main() {
 
 	values := url.Values{}
 	values.Add("before", string(b))
-	values.Add("wb_lp", "ENJA")
+	values.Add("wb_lp", mode)
 	resp, err := http.PostForm("https://www.excite.co.jp/world/english_japanese/", values)
 	if err != nil {
 		log.Fatal(err)
