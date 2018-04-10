@@ -21,7 +21,7 @@ func main() {
 	values := url.Values{}
 	values.Add("before", string(b))
 	values.Add("wb_lp", "ENJA")
-	resp, err := http.PostForm("http://www.excite.co.jp/world/english/", values)
+	resp, err := http.PostForm("https://www.excite.co.jp/world/english_japanese/", values)
 	if err != nil {
 		log.Fatal(err)
 	}
